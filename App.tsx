@@ -40,10 +40,10 @@ export default function App() {
   }
 
   const body = {
-    name_of_author: "Last Book",
-    cover: "https://images.unsplash.com/photo-1580008006944-bb3b7e890d5d",
-    price_of_book: "500",
-    email_of_seller: "emma@gmail.com"
+    name_of_author: "Accessing APIs with React Native",
+    cover: "https://images.unsplash.com/photo-1551721434-8b94ddff0e6d",
+    price_of_book: "50.00",
+    email_of_seller: "cynthiap@gmail.com"
   }
 
   const createBook = async () => {
@@ -51,6 +51,16 @@ export default function App() {
       const response = await axios.post(endpointURL, body)
       Alert.alert("Book has been created.")
       getListOfBooks();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const updateBook = async () => {
+    try {
+      const response = await axios.put(`${endpointURL}/8`, body)
+      Alert.alert("Book has been updated.")
+      getListOfBooks()
     } catch (error) {
       console.log(error)
     }
@@ -64,6 +74,7 @@ export default function App() {
         <Button title="Get Book by ID" onPress={getBookByID} />
         <Button title="Delete Book by ID" onPress={deleteBookByID} />
         <Button title="Create Book" onPress={createBook} />
+        <Button title="Update Book" onPress={updateBook} />
         <FlatList
           data={bookList}
           keyExtractor={(item) => item.id.toString()}
