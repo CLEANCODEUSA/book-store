@@ -15,15 +15,17 @@ export default function App() {
     setBookList(response.data)
   }
 
-  console.log("===========bookList=======")
-  console.log(bookList)
-  console.log("==========================")
+  const getBookByID = async () => {
+    const response = await axios.get(`${endpointURL}/4`);
+    console.log(JSON.stringify(response.data, null, 3))
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View>
         <Button title="Get List of Books" onPress={getListOfBooks} />
+        <Button title="Get Book by ID" onPress={getBookByID} />
         <FlatList
           data={bookList}
           keyExtractor={(item) => item.id.toString()}
