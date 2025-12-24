@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, FlatList, Alert } from 'react-native';
 import axios from 'axios'
 import { useState } from 'react';
 
@@ -29,12 +29,22 @@ export default function App() {
     }
   }
 
+  const deleteBookByID = async () => {
+    try {
+      const response = await axios.delete(`${endpointURL}/3`)
+      Alert.alert("Book has been deleted successfully.")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View>
         <Button title="Get List of Books" onPress={getListOfBooks} />
         <Button title="Get Book by ID" onPress={getBookByID} />
+        <Button title="Delete Book by ID" onPress={deleteBookByID} />
         <FlatList
           data={bookList}
           keyExtractor={(item) => item.id.toString()}
