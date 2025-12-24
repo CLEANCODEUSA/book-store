@@ -10,14 +10,23 @@ export default function App() {
   const endpointURL = "https://694b54ac26e870772067d39d.mockapi.io/books"
 
   const getListOfBooks = async () => {
-    const response = await axios.get(endpointURL);
-    // console.log(JSON.stringify(response.data, null, 3))
-    setBookList(response.data)
+    try {
+      const response = await axios.get(endpointURL);
+      console.log(JSON.stringify(response.data, null, 3))
+      setBookList(response.data)
+    } catch (error) {
+      console.log("An Error occured" + error)
+    }
   }
 
   const getBookByID = async () => {
-    const response = await axios.get(`${endpointURL}/4`);
-    console.log(JSON.stringify(response.data, null, 3))
+    try {
+      const response = await axios.get(`${endpointURL}/4`);
+      console.log(JSON.stringify(response.data, null, 3))
+    }
+    catch (error) {
+      console.log("An Error occured: " + error)
+    }
   }
 
   return (
