@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-const BookCard = ({ title, price, authorName, imageURL }) => {
+const BookCard = ({ title, price, authorName, imageURL, onDeleteItem }) => {
   return <View style={styles.container}>
     {/* Image Section */}
     <Image
@@ -19,7 +19,7 @@ const BookCard = ({ title, price, authorName, imageURL }) => {
 
     {/* Delte and Edit buttons */}
     <View style={styles.delEditContainer}>
-      <TouchableOpacity style={styles.circleButton}>
+      <TouchableOpacity style={styles.circleButton} onPress={onDeleteItem}>
         <MaterialIcons name="delete-outline" size={20} color="red" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.circleButton}>
