@@ -1,14 +1,33 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import BookCard from '../components/BookCard'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { getListOfBooks } from '../api/config';
 
 const HomeScreen = () => {
+  const [bookList, setBookList] = useState()
+
+  useEffect(() => {
+    getListOfBooks({
+      onSuccess: books => setBookList(books),
+      onError: err => console.log(err)
+    })
+  }, [])
+
+  console.log(bookList);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <BookCard title={"Soul"} price={30.00} authorName={"Olivia wilson"} imageURL={"https://plus.unsplash.com/premium_photo-1766746551190-2f186c2f2360"} />
-      <BookCard title={"Second"} price={20} authorName={"Olivia wilson"} imageURL={"https://plus.unsplash.com/premium_photo-1766746551190-2f186c2f2360"} />
-      <BookCard title={"333"} price={90} authorName={"Olivia wilson"} imageURL={"https://plus.unsplash.com/premium_photo-1766746551190-2f186c2f2360"} />
+      <FlatList
+        data={bookList}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => <BookCard
+          authorName={item.name_of_author}
+          price={item.price_of_book}
+          imageURL={item.cover}
+          title={item.book_title}
+        />}
+      />
     </SafeAreaView>
 
   )
