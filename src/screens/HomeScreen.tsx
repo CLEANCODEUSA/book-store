@@ -1,11 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import BookCard from '../components/BookCard'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
   return (
-    <View style={{ flex: 1, backgroundColor: "gold" }}>
-      <Text>HomeScreen</Text>
-    </View>
+    <SafeAreaView>
+      <BookCard />
+    </SafeAreaView>
+
   )
 }
 
