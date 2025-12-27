@@ -3,31 +3,36 @@ import { Alert } from 'react-native';
 
 const endpointURL = "https://694b54ac26e870772067d39d.mockapi.io/books"
 
-const getListOfBooks = async () => {
+export const getListOfBooks = async ({onSuccess, onError}) => {
   try {
     const response = await axios.get(endpointURL);
     console.log(JSON.stringify(response.data, null, 3))
-    setBookList(response.data)
+    onSuccess && onSuccess(response.data)
   } catch (error) {
+    onError && onError(error)
     console.log("An Error occured" + error)
   }
 }
 
-const getBookByID = async () => {
+export const getBookByID = async ({onSuccess, onError}) => {
   try {
     const response = await axios.get(`${endpointURL}/4`);
     console.log(JSON.stringify(response.data, null, 3))
+    onSuccess && onSuccess(response.data)
   }
   catch (error) {
+    onError && onError(error)
     console.log("An Error occured: " + error)
   }
 }
 
-const deleteBookByID = async () => {
+export const deleteBookByID = async ({onSuccess, onError}) => {
   try {
     const response = await axios.delete(`${endpointURL}/3`)
     Alert.alert("Book has been deleted successfully.")
+    onSuccess && onSuccess(response.data)
   } catch (error) {
+    onError && onError(error)
     console.log(error)
   }
 }
@@ -39,22 +44,24 @@ const body = {
   email_of_seller: "cynthiap@gmail.com"
 }
 
-const createBook = async () => {
+export const createBook = async ({onSuccess, onError}) => {
   try {
     const response = await axios.post(endpointURL, body)
     Alert.alert("Book has been created.")
-    getListOfBooks();
+    onSuccess && onSuccess(response.data)
   } catch (error) {
+    onError && onError(error)
     console.log(error)
   }
 }
 
-const updateBook = async () => {
+export const updateBook = async ({onSuccess, onError}) => {
   try {
     const response = await axios.put(`${endpointURL}/8`, body)
     Alert.alert("Book has been updated.")
-    getListOfBooks()
+    onSuccess && onSuccess(response.data)
   } catch (error) {
+    onError && onError(error)
     console.log(error)
   }
 }
