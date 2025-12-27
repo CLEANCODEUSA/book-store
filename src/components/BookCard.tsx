@@ -2,19 +2,19 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-const BookCard = () => {
+const BookCard = ({ title, price, authorName, imageURL }) => {
   return <View style={styles.container}>
     {/* Image Section */}
     <Image
-      source={{ uri: "https://plus.unsplash.com/premium_photo-1766746551190-2f186c2f2360" }}
+      source={{ uri: imageURL }}
       style={styles.coverImage}
     />
 
     {/* Details Section */}
     <View style={styles.detailsContainer}>
-      <Text style={styles.bookName}>Soul</Text>
-      <Text style={styles.authorName}>Olivia Wilson</Text>
-      <Text style={styles.price}>$25.00</Text>
+      <Text style={styles.bookName}>{title}</Text>
+      <Text style={styles.authorName}>{authorName}</Text>
+      <Text style={styles.price}>${price}</Text>
     </View>
 
     {/* Delte and Edit buttons */}
