@@ -1,17 +1,34 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AddTextInput from './AddTextInput';
 import AppButton from './AppButton';
+import { createBook } from '../api/config';
 
-const AddBookScreen = ({ onCloseIconPress }) => {
+const AddBookScreen = ({ onCloseIconPress, onCreateSuccess }) => {
   const [bookName, setBookName] = useState("")
   const [authorName, setAuthorName] = useState("")
   const [coverURL, setCoverURL] = useState("")
   const [price, setPrice] = useState("")
 
-  console.log(bookName, authorName, coverURL, price);
+  // console.log(bookName, authorName, coverURL, price);
+
+  const CreateNewBook = () => {
+    createBook({
+      body: {
+        book_title: bookName,
+        name_of_author: authorName,
+        price_of_book: price,
+        cover: coverURL
+      },
+      onSuccess: () => {
+        onCloseIconPress()
+        onCreateSuccess()
+      },
+      onError: (error) => { Alert.alert("Error hapened.") }
+    })
+  }
 
   return (
     <SafeAreaView>
@@ -22,7 +39,7 @@ const AddBookScreen = ({ onCloseIconPress }) => {
         <AddTextInput value={authorName} onChangeText={setAuthorName} placeholder={"Author Name"} />
         <AddTextInput value={coverURL} onChangeText={setCoverURL} placeholder={"Cover Image"} />
         <AddTextInput value={price} onChangeText={setPrice} placeholder={"Book Price"} keyboardType={"numeric"} />
-        <AppButton onPress={onCloseIconPress} />
+        <AppButton onPress={CreateNewBook} />
       </View>
     </SafeAreaView>
   )

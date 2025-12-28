@@ -37,14 +37,7 @@ export const deleteBookByID = async ({onSuccess, onError, itemID}) => {
   }
 }
 
-const body = {
-  name_of_author: "Accessing APIs with React Native",
-  cover: "https://images.unsplash.com/photo-1551721434-8b94ddff0e6d",
-  price_of_book: "50.00",
-  email_of_seller: "cynthiap@gmail.com"
-}
-
-export const createBook = async ({onSuccess, onError}) => {
+export const createBook = async ({onSuccess, onError, body}) => {
   try {
     const response = await axios.post(endpointURL, body)
     Alert.alert("Book has been created.")
