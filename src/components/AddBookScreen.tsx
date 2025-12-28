@@ -4,18 +4,36 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AddTextInput from './AddTextInput';
 import AppButton from './AppButton';
-import { createBook } from '../api/config';
+import { createBook, updateBook } from '../api/config';
 
-const AddBookScreen = ({ onCloseIconPress, onCreateSuccess }) => {
-  const [bookName, setBookName] = useState("")
-  const [authorName, setAuthorName] = useState("")
-  const [coverURL, setCoverURL] = useState("")
-  const [price, setPrice] = useState("")
+const AddBookScreen = ({ onCloseIconPress, onCreateSuccess, selectedItem }) => {
+  const [bookName, setBookName] = useState(selectedItem?.book_title ?? "")
+  const [authorName, setAuthorName] = useState(selectedItem?.name_of_author ?? "")
+  const [coverURL, setCoverURL] = useState(selectedItem?.cover ?? "")
+  const [price, setPrice] = useState(selectedItem?.price_of_book ?? "")
 
   // console.log(bookName, authorName, coverURL, price);
+  console.log(!!selectedItem)
 
   const CreateNewBook = () => {
     createBook({
+      body: {
+        book_title: bookName,
+        name_of_author: authorName,
+        price_of_book: price,
+        cover: coverURL
+      },
+      onSuccess: () => {
+        onCloseIconPress()
+        onCreateSuccess()
+      },
+      onError: (error) => { Alert.alert("Error hapened.") }
+    })
+  }
+
+  const editBook = () => {
+    updateBook({
+      ID: selectedItem?.id,
       body: {
         book_title: bookName,
         name_of_author: authorName,
@@ -39,7 +57,7 @@ const AddBookScreen = ({ onCloseIconPress, onCreateSuccess }) => {
         <AddTextInput value={authorName} onChangeText={setAuthorName} placeholder={"Author Name"} />
         <AddTextInput value={coverURL} onChangeText={setCoverURL} placeholder={"Cover Image"} />
         <AddTextInput value={price} onChangeText={setPrice} placeholder={"Book Price"} keyboardType={"numeric"} />
-        <AppButton onPress={CreateNewBook} />
+        <AppButton onPress={!!selectedItem ? editBook : CreateNewBook} />
       </View>
     </SafeAreaView>
   )

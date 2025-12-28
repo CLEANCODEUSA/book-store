@@ -48,9 +48,9 @@ export const createBook = async ({onSuccess, onError, body}) => {
   }
 }
 
-export const updateBook = async ({onSuccess, onError}) => {
+export const updateBook = async ({onSuccess, onError, body, ID}) => {
   try {
-    const response = await axios.put(`${endpointURL}/8`, body)
+    const response = await axios.put(`${endpointURL}/${ID}`, body)
     Alert.alert("Book has been updated.")
     onSuccess && onSuccess(response.data)
   } catch (error) {
