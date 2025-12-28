@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AddTextInput from './AddTextInput';
+import AppButton from './AppButton';
 
 const AddBookScreen = ({ onCloseIconPress }) => {
-
   const [bookName, setBookName] = useState("")
   const [authorName, setAuthorName] = useState("")
   const [coverURL, setCoverURL] = useState("")
@@ -22,6 +22,7 @@ const AddBookScreen = ({ onCloseIconPress }) => {
         <AddTextInput value={authorName} onChangeText={setAuthorName} placeholder={"Author Name"} />
         <AddTextInput value={coverURL} onChangeText={setCoverURL} placeholder={"Cover Image"} />
         <AddTextInput value={price} onChangeText={setPrice} placeholder={"Book Price"} keyboardType={"numeric"} />
+        <AppButton onPress={onCloseIconPress} />
       </View>
     </SafeAreaView>
   )
