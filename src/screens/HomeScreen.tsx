@@ -9,7 +9,7 @@ import AddBookScreen from '../components/AddBookScreen';
 const HomeScreen = () => {
   const [bookList, setBookList] = useState()
   const [modalVisible, setModalVisible] = useState(false)
-  const [selectedItem, setSelectedItem] = useState({})
+  const [selectedItem, setSelectedItem] = useState(null)
 
   const getListOfBooksFN = () => {
     getListOfBooks({
@@ -54,7 +54,7 @@ const HomeScreen = () => {
       />
       <AddButton onPress={() => {
         setModalVisible(true)
-        setSelectedItem({})
+        setSelectedItem(null)
       }} />
       <Modal visible={modalVisible} animationType="slide">
         <AddBookScreen
