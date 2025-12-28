@@ -1,11 +1,14 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import BookCard from '../components/BookCard'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { deleteBookByID, getListOfBooks } from '../api/config';
+import AddButton from '../components/AddButton';
+import AddBookScreen from '../components/AddBookScreen';
 
 const HomeScreen = () => {
   const [bookList, setBookList] = useState()
+  const [modalVisible, setModalVisible] = useState(false)
 
   const getListOfBooksFN = () => {
     getListOfBooks({
@@ -41,6 +44,10 @@ const HomeScreen = () => {
           onDeleteItem={() => onDeleteItem(item)}
         />}
       />
+      <AddButton onPress={() => { setModalVisible(true) }} />
+      <Modal visible={modalVisible} animationType="slide">
+        <AddBookScreen onCloseIconPress={() => { setModalVisible(false) }} />
+      </Modal>
     </SafeAreaView>
 
   )
